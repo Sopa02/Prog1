@@ -61,11 +61,15 @@ int main(){
     Image i5{Point{600,600},"smile.jpg"};
     window.attach(i5);
     window.wait_for_button();
+    //  These will store where the image was moved to
+    int help1=600;
+    int help2=600;
     for (int i = 0; i < 5; i++)
     {
-        int rnd1=(rand()%8+1)*100;
-        int rnd2=(rand()%8+1)*100;
-        i5.move(rnd1,rnd2);
+        i5.move(-help1,-help2); // Sets the image back to 0;0
+        help1=(rand()%8)*100;  //  Random number between 0,100,200...700
+        help2=(rand()%8)*100;  // 2 random numbers, so we get coordinates other than diagonal
+        i5.move(help1,help2);  
         window.wait_for_button();
     }
     return 0;
