@@ -1,7 +1,9 @@
-// g++ ./dr13/main.cpp Graph.cpp Window.cpp GUI.cpp Simple_window.cpp -o ./dr13/main `fltk-config --ldflags --use-images`
+// g++ ./dr13/main.cpp Graph.cpp Window.cpp GUI.cpp Simple_window.cpp -o ./dr13/main `fltk-config --ldflags --use-images` && ./dr13/main
 #include "../Simple_window.h"
 #include "../Graph.h"
 #include <stdlib.h>
+#include <ctime>
+
 //Our own way of storing rectangles
 // template<class T>class Vector_rect
 // {
@@ -64,8 +66,10 @@ int main(){
     //  These will store where the image was moved to
     int help1=600;
     int help2=600;
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 10; i++)
     {
+        //Setting the seed of the random generator with the time
+        srand(time(NULL)*sqrt(help1)); //using the last random number to change the seed a bit
         i5.move(-help1,-help2); // Sets the image back to 0;0
         help1=(rand()%8)*100;  //  Random number between 0,100,200...700
         help2=(rand()%8)*100;  // 2 random numbers, so we get coordinates other than diagonal
