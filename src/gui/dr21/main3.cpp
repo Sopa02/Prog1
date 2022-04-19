@@ -2,6 +2,29 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+
+template<typename Iter1, typename Iter2, typename p> 
+Iter2 mycopy_if(Iter1 f1, Iter1 e1, Iter2 f2, p pred){
+    if (f1==e1)
+    {
+        return f2;
+    }
+    Iter1 it;
+    for(it = f1; it!=e1; ++it){
+            if(pred(*it))
+                *++f2 = *it;
+    }
+    return f2;
+}
+
+struct Less_than
+{
+    double val;
+    public:
+        Less_than(double x){val=x;}
+        bool operator()(const double& a) const {return a<val;}
+};
+
 template<typename T>
 void readFromFile(std::string filename, T& v){
     std::ifstream ins {filename};
@@ -43,6 +66,18 @@ int main(){
     for(const auto& x:vd){
         std::cout<<x<<'\n';
     }
+
+    std::cout<<"Mean of vd: "<<sum(vd,0.0)/vd.size()<<'\n';
+
+    std::vector<double> vd2(21);
+    mycopy_if(vd.begin(),vd.end(),vd2.begin(),Less_than(sum(vd,0.0)/vd.size()));
+
+    std::cout<<"vd2: "<<'\n';
+    for (const auto& x : vd2)
+    {
+        std::cout<<x<<'\n';
+    }
+    
 
     return 0;
 }

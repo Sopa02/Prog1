@@ -4,6 +4,18 @@
 #include <fstream>
 #include <list>
 #include <algorithm>
+template<typename Iter1, typename Iter2, typename p> 
+Iter2 mycopy(Iter1 f1, Iter1 e1, Iter2 f2){
+    if (f1==e1)
+    {
+        return f2;
+    }
+    Iter1 it;
+    for(it = f1; it!=e1; ++it){
+            *++f2 = *it;
+    }
+    return f2;
+}
 
 struct Item
 {
