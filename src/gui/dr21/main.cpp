@@ -141,7 +141,8 @@ int main(){
     std::list<Item> li;
     readFromFile(filename,li);
     print(li,"List:");
-    li.sort(Compare_by_name());
+    li.sort([](const Item& a, const Item& b){return a.name<b.name;});
+    print(li,"Sort by name:");
     li.sort(Compare_by_iid());
     li.sort(Compare_by_value());
 
