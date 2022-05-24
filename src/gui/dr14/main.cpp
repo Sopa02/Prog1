@@ -65,10 +65,12 @@ class D22 : public B2{
     D22(){
         datamember = 11;
     };
-    void f(B2& ref){
-        ref.pvf();
+    // void f(B2& ref){
+    //     ref.pvf();
+    // }
+    void f(B2* p){ //Pointerre alakitas
+        p->pvf();
     }
-
 };
 int main(){
     cout<<"objectB1---------\n";
@@ -99,7 +101,7 @@ int main(){
     cout<<"objectD22---------\n";
     B2 objectB2;
     D22 objectD22;
-    objectD22.f(objectB2);
+    objectD22.f(&objectB2); // pointert megadni 
     objectD22.vf();
     objectD22.pvf();
     return 0;
