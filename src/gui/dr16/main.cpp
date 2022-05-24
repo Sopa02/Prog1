@@ -21,18 +21,21 @@ private:
     In_box next_x;
     In_box next_y;
     Out_box xy_out;
-
+    //két address, amiből az első a widget-é, a második pedig az ablaké
     static void cb_red(Address, Address);
     static void cb_blue(Address, Address);
     static void cb_black(Address, Address);
+    static void cb_yellow(Address,Address);
     static void cb_menu(Address, Address);
     static void cb_ls_menu(Address, Address);
     static void cb_dash(Address, Address);
     static void cb_solid(Address, Address);
+    static void cb_ownStyle(Address,Address);
     // COLOR MENU
     void red_pressed() { change(Color::red); hide_menu(); }
     void blue_pressed() { change(Color::blue); hide_menu(); }
     void black_pressed() { change(Color::black); hide_menu(); }
+    void yellow_pressed() { change(Color::yellow); hide_menu();}
     void change(Color c) { lines.set_color(c); redraw(); }
     void menu_pressed() {menu_button.hide(); color_menu.show();}
     void hide_menu(){color_menu.hide(); menu_button.show();}
@@ -41,6 +44,7 @@ private:
     void hide_ls_menu(){ls_menu_button.show(); line_style_menu.hide();}
     void dash_pressed() {change_style(Line_style::dash); hide_ls_menu();}
     void solid_pressed() {change_style(Line_style::solid); hide_ls_menu();}
+    void ownStyle_pressed() {change_style(Line_style{Line_style::dashdotdot,3}); hide_ls_menu();}
     void change_style(Line_style s) {lines.set_style(s); redraw();}
 
     void next();
@@ -74,6 +78,7 @@ Lines_window::Lines_window(Point xy, int w, int h, const string& title)
     color_menu.attach(new Button{Point{0,0},0,0,"red",cb_red});
     color_menu.attach(new Button{Point{0,0},0,0,"blue",cb_blue});
     color_menu.attach(new Button{Point{0,0},0,0,"black",cb_black});
+    color_menu.attach(new Button{Point{0,0},0,0,"yellow",cb_yellow});
     attach(color_menu);
     color_menu.hide();
     attach(menu_button);
@@ -81,6 +86,7 @@ Lines_window::Lines_window(Point xy, int w, int h, const string& title)
     //STYLE MENU
     line_style_menu.attach(new Button{Point{0,0},0,0,"dash",cb_dash});
     line_style_menu.attach(new Button{Point{0,0},0,0,"solid",cb_solid});
+    line_style_menu.attach(new Button{Point{0,0},0,0,"Own-Stlye",cb_ownStyle});
     attach(line_style_menu);
     line_style_menu.hide();
     attach(ls_menu_button);
@@ -110,7 +116,12 @@ void Lines_window::cb_dash(Address, Address pw){
 void Lines_window::cb_solid(Address, Address pw){
     reference_to<Lines_window>(pw).solid_pressed();
 }
-
+void Lines_window::cb_ownStyle(Address, Address pw){
+    reference_to<Lines_window>(pw).ownStyle_pressed();
+}
+void Lines_window::cb_yellow(Address, Address pw){
+    reference_to<Lines_window>(pw).yellow_pressed();
+}
 // METHODS -------------------------------------
 
 void Lines_window::quit(){
