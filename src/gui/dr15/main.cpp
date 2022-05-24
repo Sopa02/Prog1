@@ -7,6 +7,7 @@ double one(double x){return 1;}
 double slope(double x){return x/2;}
 double square(double x){return x*x;}
 double sloping_cos(double x){return cos(x)+slope(x);}
+double sloping_sin(double x){return sin(x)+slope(x);}
 int main(){
 
     using namespace Graph_lib;
@@ -27,7 +28,13 @@ int main(){
     Function f4 {cos,-10,10,Point{300,300},400,20,20};
     f4.set_color(Color::blue);
     Function f5 {sloping_cos,-10,10,Point{300,300},400,20,20};
+    f5.set_style(Line_style{Line_style::solid,3});
+    f5.set_color(Color::dark_yellow);
 
+    //Adding sloping sin
+    Function f6 {sloping_sin,-10,10,Point{300,300},400,20,20};
+    f6.set_style(Line_style{Line_style::solid,3});
+    f6.set_color(Color::dark_blue);
 
     window.attach(f1);
     window.attach(f2);
@@ -35,6 +42,7 @@ int main(){
     window.attach(f3);
     window.attach(f4);
     window.attach(f5);
+    window.attach(f6);
     window.wait_for_button();
 
 
