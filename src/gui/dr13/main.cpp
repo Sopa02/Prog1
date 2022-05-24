@@ -42,13 +42,14 @@ int main(){
 
     //8 rectangles----------------------------------------------------------------
 
-    vector<Graph_lib::Rectangle *> rectangles;
+    //vector<Graph_lib::Rectangle *> rectangles;
+    Vector_ref<Graph_lib::Rectangle> rectangles;
 
     for (int i = 0; i < 800; i+=100)
     {
         rectangles.push_back(new Graph_lib::Rectangle(Point{i,i},Point{i+100,i+100}));
-        rectangles[rectangles.size()-1]->set_fill_color(Color::red);
-        window.attach(*rectangles[rectangles.size()-1]);
+        rectangles[rectangles.size()-1].set_fill_color(Color::red);
+        window.attach(rectangles[rectangles.size()-1]);
     }
 
     Image i1{Point{0,200},"rozsomak.jpg"};
