@@ -6,6 +6,28 @@
 #include <array>
 #include <algorithm>
 
+//Adding a predicate
+struct divideable_by_10
+{
+    public:
+        bool operator()(const int& a) const {return a%10==0;}
+};
+
+//Adding mycopy_if
+template<typename Iter1, typename Iter2, typename p> 
+Iter2 mycopy_if(Iter1 f1, Iter1 e1, Iter2 f2, p pred){
+    if (f1==e1)
+    {
+        return f2;
+    }
+    Iter1 it;
+    for(it = f1; it!=e1; ++it){
+            if(pred(*it))
+                *++f2 = *it;
+    }
+    return f2;
+}
+
 template<typename Iter1, typename Iter2>
 Iter2 mycopy(Iter1 f1, Iter1 e1, Iter2 f2){
     if (f1==e1)
@@ -91,5 +113,24 @@ int main (){
     }else
         std::cout<<"The list does not contain the value 27\n";
     
+
+
+    std::cout<<"\n\nCopy if divideable by 10.\n";
+
+    std::vector<int> lastVec = {1,2,3,4,10,20,14,31,1240,24,30};
+    for(auto& x:lastVec){
+        std::cout<<x<<", ";
+    }
+    std::cout<<"\nThe copy of it: \n";
+    
+    std::vector<int> lastVecCopy(11);
+    mycopy_if(lastVec.begin(),lastVec.end(),lastVecCopy.begin(),divideable_by_10());
+
+    for(auto& x:lastVecCopy){
+        std::cout<<x<<", ";
+    }
+    std::cout<<'\n';
+    
+
     return 0;
 }
